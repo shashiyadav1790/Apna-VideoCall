@@ -1,4 +1,4 @@
-import bcrypt,{hash} from "bcrypt";
+import bcrypt from "bcryptjs";
 import { User } from "../models/userModels.js";
 import httpStatus from "http-status";
 import crypto from "crypto";
