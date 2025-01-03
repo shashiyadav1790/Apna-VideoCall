@@ -11,15 +11,11 @@ import MicOffIcon from '@mui/icons-material/MicOff'
 import ScreenShareIcon from '@mui/icons-material/ScreenShare';
 import StopScreenShareIcon from '@mui/icons-material/StopScreenShare'
 import ChatIcon from '@mui/icons-material/Chat'
-//  import server from '../environment';
+ import server from '../environment';
 
-//  const server_url = "http://localhost:3000";
+ const server_url = server;
 
-let IS_PROD = true;
-const server_url = IS_PROD ?
-    "https://apnacollegebackend.onrender.com" :
 
-    "http://localhost:3000"
 
 
 
