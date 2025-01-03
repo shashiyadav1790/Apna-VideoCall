@@ -10,7 +10,7 @@ let timeOnline = {};
                   
             cors: {
 
-                  origin: "https://apnavideocall-81wl.onrender.com/", // Use specific origins in production
+                  origin: "https://apnavideocall-81wl.onrender.com", // Use specific origins in production
                   methods: ["GET", "POST"],
                   allowedHeaders: ["Content-Type", "Authorization"],
                   credentials: true,
