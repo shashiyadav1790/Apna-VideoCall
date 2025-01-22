@@ -1,66 +1,70 @@
-import bcrypt from "bcryptjs";
-import { User } from "../models/userModels.js";
 import httpStatus from "http-status";
-import crypto from "crypto";
+import { User } from "../models/userModels.js";
+import bcrypt, { hash } from "bcrypt"
 
+import crypto from "crypto"
+import { Meeting } from "../models/meetingModels.js";
+const login = async (req, res) => {
 
-const login = async(req,res)=>{
-    const {userName,password} = req.body;
-    
-   
+    const { username, password } = req.body;
 
-    if(!userName || !password){
-        return res.status(400).json({message: "please provide"});
+    if (!username || !password) {
+        return res.status(400).json({ message: "Please Provide" })
     }
-    try{
-        const user = await User.findOne({userName});
-      
-        if(!user){
-            return res.status(httpStatus.NOT_FOUND).json({message: "User not found"});
+
+    try {
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(httpStatus.NOT_FOUND).json({ message: "User Not Found" })
         }
-        const password = await bcrypt.compare(userName,user.password);
-        console.log(password)
-        if(password){
+
+
+        let isPasswordCorrect = await bcrypt.compare(password, user.password)
+
+        if (isPasswordCorrect) {
             let token = crypto.randomBytes(20).toString("hex");
 
             user.token = token;
             await user.save();
-            return res.status(httpStatus.OK).json({token: token})
-        }else{
-            return res.status(httpStatus.OK).json({message: "Invalid username or password"});
+            return res.status(httpStatus.OK).json({ token: token })
+        } else {
+            return res.status(httpStatus.UNAUTHORIZED).json({ message: "Invalid Username or password" })
         }
-    }catch(err){
-        return res.status(500).json({message: `something went worng${err}`});
 
-  
-}
-}
-
-
-const register = async(req,res)=>{
-    const {name,userName,password} = req.body;
-    
-    try{
-        const existingUser = await User.findOne({userName})
-        if(existingUser){
-            return res.status(httpStatus.FOUND).json({message: "user already exists"});
-        }
-        const hashPassword = await bcrypt.hash(password,10);
-        const newUser = new User({
-            name: name,
-            userName: userName,
-            password: hashPassword,
-        })
-        console.log(newUser);
-        
-        await newUser.save()
-
-        res.status(httpStatus.CREATED).json({message: "user registered successfully"});
-    }catch(e){
-
-        res.json({message: `something went wrong ${e}`});
+    } catch (e) {
+        return res.status(500).json({ message: `Something went wrong ${e}` })
     }
 }
+
+
+const register = async (req, res) => {
+    const { name, username, password } = req.body;
+
+
+    try {
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            return res.status(httpStatus.FOUND).json({ message: "User already exists" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = new User({
+            name: name,
+            username: username,
+            password: hashedPassword
+        });
+
+        await newUser.save();
+
+        res.status(httpStatus.CREATED).json({ message: "User Registered" })
+
+    } catch (e) {
+        res.json({ message: `Something went wrong ${e}` })
+    }
+
+}
+
 
 const getUserHistory = async (req, res) => {
     const { token } = req.query;
@@ -93,4 +97,5 @@ const addToHistory = async (req, res) => {
     }
 }
 
-export {login,register,getUserHistory,addToHistory}
+
+export { login, register, getUserHistory, addToHistory }
