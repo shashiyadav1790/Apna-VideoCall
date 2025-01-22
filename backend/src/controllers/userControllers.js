@@ -1,6 +1,7 @@
 import httpStatus from "http-status";
 import { User } from "../models/userModels.js";
-import bcrypt, { hash } from "bcrypt"
+import bcrypt from 'bcryptjs'; 
+
 
 import crypto from "crypto"
 import { Meeting } from "../models/meetingModels.js";
