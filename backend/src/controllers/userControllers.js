@@ -1,19 +1,21 @@
 import httpStatus from "http-status";
-import { User } from "../models/userModels.js";
-import bcrypt from 'bcryptjs'; 
-
+import  User  from "../models/userModels.js";
+import bcrypt from "bcryptjs"
 
 import crypto from "crypto"
 import { Meeting } from "../models/meetingModels.js";
 const login = async (req, res) => {
 
-    const { username, password } = req.body;
-
-    if (!username || !password) {
-        return res.status(400).json({ message: "Please Provide" })
-    }
+   
 
     try {
+
+        const { username, password } = req.body;
+
+        if (!username || !password) {
+            return res.status(400).json({ message: "Please Provide" })
+        }
+
         const user = await User.findOne({ username });
         if (!user) {
             return res.status(httpStatus.NOT_FOUND).json({ message: "User Not Found" })
