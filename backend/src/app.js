@@ -15,7 +15,7 @@ app.set("port", process.env.PORT || 8000);
 // ✅ Fixed and safe CORS configuration
 const allowedOrigins = [
 
-  "https://apna-video-call-r69l.vercel.app/" // ✅ Your frontend deployed URL
+  "http://localhost:5173/" // ✅ Your frontend deployed URL
 ];
 
 app.use(cors({
