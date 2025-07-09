@@ -14,8 +14,7 @@ app.set("port", process.env.PORT || 8000);
 
 // ✅ Fixed and safe CORS configuration
 const allowedOrigins = [
-
-  "http://localhost:5173/" // ✅ Your frontend deployed URL
+  "https://apnavideocall-81wl.onrender.com", // ✅ Your frontend deployed URL
 ];
 
 app.use(cors({

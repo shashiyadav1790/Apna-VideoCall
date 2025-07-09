@@ -446,19 +446,70 @@ export default function VideoMeetComponent() {
 
             {askForUsername === true ?
 
-                <div>
+               <div
+  style={{
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f0f2f5",
+    padding: "20px",
+  }}
+>
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      gap: "20px",
+      backgroundColor: "#ffffff",
+      padding: "30px",
+      borderRadius: "12px",
+      boxShadow: "0 0 15px rgba(0,0,0,0.1)",
+      maxWidth: "400px",
+      width: "100%",
+      textAlign: "center",
+    }}
+  >
+    <h2 style={{ marginBottom: "10px" }}>Enter into Lobby</h2>
+    <TextField
+      fullWidth
+      id="outlined-basic"
+      label="Username"
+      value={username}
+      onChange={(e) => setUsername(e.target.value)}
+      variant="outlined"
+    />
+    <Button
+      fullWidth
+      variant="contained"
+      color="primary"
+      onClick={connect}
+      style={{ marginTop: "10px" }}
+    >
+      Connect
+    </Button>
 
-
-                    <h2>Enter into Lobby </h2>
-                    <TextField id="outlined-basic" label="Username" value={username} onChange={e => setUsername(e.target.value)} variant="outlined" />
-                    <Button variant="contained" onClick={connect}>Connect</Button>
-
-
-                    <div>
-                        <video ref={localVideoref} autoPlay muted></video>
-                    </div>
-
-                </div> :
+    <div>
+      <video
+        ref={localVideoref}
+        autoPlay
+        muted
+        style={{
+          width: "100%",
+          maxHeight: "250px",
+          borderRadius: "8px",
+          border: "2px solid #ccc",
+          marginTop: "20px",
+          objectFit: "cover",
+        }}
+      ></video>
+      <p style={{ marginTop: "10px", fontWeight: "bold", fontSize: "14px" }}>
+        Your Video Preview
+      </p>
+    </div>
+  </div>
+</div>
+ :
 
 
                 <div className={styles.meetVideoContainer}>
@@ -485,7 +536,7 @@ export default function VideoMeetComponent() {
                             </div>
 
                             <div className={styles.chattingArea}>
-                                <TextField value={message} onChange={(e) => setMessage(e.target.value)} id="outlined-basic" label="Enter Your chat" variant="outlined" />
+                                <TextField value={message} onChange={(e) => setMessage(e.target.value)} id="outlined-basic" label="Enter Your chat" variant="outlined" required />
                                 <Button variant='contained' onClick={sendMessage}>Send</Button>
                             </div>
 
